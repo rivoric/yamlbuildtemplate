@@ -5,7 +5,7 @@ parameters:
   buildConfiguration: 'release'
 
 steps:
-- script: dotnet restore ${{ projectFile }}
-- script:  dotnet build --configuration ${{ buildConfiguration }} ${{ projectFile }}
-- script:  dotnet test dotnetcore-tests --configuration ${{ buildConfiguration }} --logger trx ${{ projectFile }}
-- script:  dotnet publish --configuration ${{ buildConfiguration }} --output $BUILD_ARTIFACTSTAGINGDIRECTORY ${{ projectFile }}
+- script: dotnet restore ${{ parameters.projectFile }}
+- script:  dotnet build --configuration ${{ parameters.buildConfiguration }} ${{ parameters.projectFile }}
+- script:  dotnet test dotnetcore-tests --configuration ${{ parameters.buildConfiguration }} --logger trx ${{ parameters.projectFile }}
+- script:  dotnet publish --configuration ${{ parameters.buildConfiguration }} --output $BUILD_ARTIFACTSTAGINGDIRECTORY ${{ parameters.projectFile }}
