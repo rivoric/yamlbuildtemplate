@@ -15,8 +15,15 @@ steps:
   displayName: dotnet build
 
 # test
-- script:  dotnet test dotnetcore-tests --configuration ${{ parameters.buildConfiguration }} --logger trx
+- script:  dotnet test --configuration ${{ parameters.buildConfiguration }} --logger trx ${{ parameters.projectFile }}
   displayName: dotnet test
+
+# publish test results
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
 
 # publish
 - script:  dotnet publish --configuration ${{ parameters.buildConfiguration }} --output $BUILD_ARTIFACTSTAGINGDIRECTORY ${{ parameters.projectFile }}
