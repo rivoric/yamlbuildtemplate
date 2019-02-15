@@ -1,0 +1,6 @@
+# dotnet core build
+steps:
+- script: dotnet restore $(projectFile)
+- script:  dotnet build --configuration $(buildConfiguration) $(projectFile)
+- script:  dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx $(projectFile)
+- script:  dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY $(projectFile)
